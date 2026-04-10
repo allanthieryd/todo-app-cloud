@@ -3,7 +3,7 @@ import type { Route } from "./+types/api.todos";
 
 // GET /api/todos — list all todos
 export async function loader(_: Route.LoaderArgs) {
-  return Response.json(getAllTodos());
+  return Response.json(await getAllTodos());
 }
 
 // POST /api/todos — create a todo
@@ -25,6 +25,6 @@ export async function action({ request }: Route.ActionArgs) {
     return Response.json({ error: "title is required" }, { status: 422 });
   }
 
-  const todo = createTodo(title.trim());
+  const todo = await createTodo(title.trim());
   return Response.json(todo, { status: 201 });
 }
